@@ -42,7 +42,7 @@ const submit = () => {
             <PageHeader title="Tambah Pembelian" description="Catat telur masuk dari pemasok." />
 
             <form class="space-y-6" @submit.prevent="submit">
-                <div class="grid gap-4 rounded-xl border border-border bg-card p-4 shadow-sm lg:grid-cols-3 md:p-6">
+                <div class="grid gap-4 rounded-xl border border-border bg-card p-4 shadow-sm md:p-6 lg:grid-cols-3">
                     <div class="grid gap-4 sm:grid-cols-2 lg:col-span-2">
                         <div class="grid gap-2">
                             <Label for="purchase_date">Tanggal <span class="text-brand-danger">*</span></Label>
@@ -87,9 +87,7 @@ const submit = () => {
                                 <dd class="font-medium text-foreground">{{ costPerEgg > 0 ? formatRupiah(costPerEgg) : '-' }}</dd>
                             </div>
                         </dl>
-                        <p class="text-xs text-muted-foreground">
-                            HPP dihitung dari total biaya dibagi total telur dan disimpan sebagai layer stok.
-                        </p>
+                        <p class="text-xs text-muted-foreground">HPP dihitung dari total biaya dibagi total telur dan disimpan sebagai layer stok.</p>
                     </div>
                 </div>
 

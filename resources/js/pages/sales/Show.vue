@@ -214,7 +214,7 @@ function submitDelivery(): void {
                 </DataTable>
             </div>
 
-            <div class="grid gap-4 rounded-xl border border-border bg-card p-4 shadow-sm sm:grid-cols-2 lg:grid-cols-4 md:p-6">
+            <div class="grid gap-4 rounded-xl border border-border bg-card p-4 shadow-sm sm:grid-cols-2 md:p-6 lg:grid-cols-4">
                 <div>
                     <p class="text-xs text-muted-foreground">Pendapatan</p>
                     <p class="mt-1 text-base font-semibold text-foreground">{{ formatRupiah(sale.revenue) }}</p>
@@ -313,8 +313,8 @@ function submitDelivery(): void {
                     <DialogHeader>
                         <DialogTitle>Batalkan transaksi?</DialogTitle>
                         <DialogDescription>
-                            Transaksi {{ sale.invoice_number }} ({{ formatRupiah(sale.total_amount) }}) akan dibatalkan dan stok
-                            sebanyak {{ formatNumber(sale.total_eggs) }} butir dikembalikan.
+                            Transaksi {{ sale.invoice_number }} ({{ formatRupiah(sale.total_amount) }}) akan dibatalkan dan stok sebanyak
+                            {{ formatNumber(sale.total_eggs) }} butir dikembalikan.
                         </DialogDescription>
                     </DialogHeader>
 

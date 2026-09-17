@@ -112,7 +112,13 @@ function margin(row: SeriesRow): string {
                 <EmptyState v-else title="Belum ada laba" description="Tidak ada transaksi pada periode ini." :icon="BarChart3" />
             </div>
 
-            <DataTable :columns="columns" :rows="series" row-key="date" empty-title="Tidak ada data profit" empty-description="Coba ubah filter periode.">
+            <DataTable
+                :columns="columns"
+                :rows="series"
+                row-key="date"
+                empty-title="Tidak ada data profit"
+                empty-description="Coba ubah filter periode."
+            >
                 <template #cell-gross_profit="{ row }">
                     <span class="text-brand-green-dark">{{ formatRupiah(row.gross_profit) }}</span>
                 </template>

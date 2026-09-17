@@ -162,12 +162,7 @@ async function destroy(row: CustomerRow): Promise<void> {
                 </template>
             </DataTable>
 
-            <Pagination
-                :links="customers.links"
-                :from="customers.from"
-                :to="customers.to"
-                :total="customers.total"
-            />
+            <Pagination :links="customers.links" :from="customers.from" :to="customers.to" :total="customers.total" />
         </PageContainer>
     </AppLayout>
 </template>

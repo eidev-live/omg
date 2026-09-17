@@ -98,9 +98,7 @@ const profitValues = computed(() => props.profitTrend.map((point) => point.gross
                     </div>
                     <Button variant="secondary" @click="apply('custom')">Terapkan</Button>
                 </div>
-                <p v-else class="text-xs text-muted-foreground">
-                    Periode: {{ formatShortDate(dateFrom) }} &ndash; {{ formatShortDate(dateTo) }}
-                </p>
+                <p v-else class="text-xs text-muted-foreground">Periode: {{ formatShortDate(dateFrom) }} &ndash; {{ formatShortDate(dateTo) }}</p>
             </div>
 
             <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -146,10 +144,7 @@ const profitValues = computed(() => props.profitTrend.map((point) => point.gross
                     class="flex items-start gap-3 rounded-lg border border-brand-yellow/40 bg-brand-yellow/15 p-4 text-sm text-[#8A6400]"
                 >
                     <AlertTriangle class="mt-0.5 size-4 shrink-0" />
-                    <p>
-                        {{ formatNumber(summary.outstanding_count) }} transaksi belum lunas dengan total
-                        {{ formatRupiah(summary.outstanding) }}.
-                    </p>
+                    <p>{{ formatNumber(summary.outstanding_count) }} transaksi belum lunas dengan total {{ formatRupiah(summary.outstanding) }}.</p>
                 </div>
                 <div
                     v-if="summary.pending_delivery_count > 0"
@@ -171,7 +166,12 @@ const profitValues = computed(() => props.profitTrend.map((point) => point.gross
                 <div class="space-y-3 rounded-xl border border-border bg-card p-4 shadow-sm">
                     <h2 class="text-sm font-semibold text-foreground">Tren Penjualan</h2>
                     <TrendChart v-if="salesValues.length > 0" :labels="salesLabels" :data="salesValues" color="#F9844A" />
-                    <EmptyState v-else title="Belum ada penjualan" description="Grafik muncul setelah ada transaksi pada periode ini." :icon="BarChart3" />
+                    <EmptyState
+                        v-else
+                        title="Belum ada penjualan"
+                        description="Grafik muncul setelah ada transaksi pada periode ini."
+                        :icon="BarChart3"
+                    />
                 </div>
                 <div class="space-y-3 rounded-xl border border-border bg-card p-4 shadow-sm">
                     <h2 class="text-sm font-semibold text-foreground">Tren Laba Kotor</h2>

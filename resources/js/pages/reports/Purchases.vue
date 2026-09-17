@@ -87,7 +87,12 @@ const exportUrl = computed(() => route('reports.purchases.export', query.value))
                 <Button @click="apply">Terapkan Filter</Button>
             </div>
 
-            <DataTable :columns="columns" :rows="purchases.data" empty-title="Tidak ada data pembelian" empty-description="Coba ubah filter periode." />
+            <DataTable
+                :columns="columns"
+                :rows="purchases.data"
+                empty-title="Tidak ada data pembelian"
+                empty-description="Coba ubah filter periode."
+            />
 
             <Pagination :links="purchases.links" :from="purchases.from" :to="purchases.to" :total="purchases.total" />
         </PageContainer>

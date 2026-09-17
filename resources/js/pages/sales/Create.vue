@@ -162,10 +162,18 @@ const submit = () => {
                         <div class="grid gap-2 sm:col-span-3">
                             <span class="text-xs text-muted-foreground">Subtotal</span>
                             <div class="flex h-10 items-center text-sm font-medium text-foreground">
-                                {{ typeFor(item.sale_type_id) ? formatRupiah(typeFor(item.sale_type_id)!.selling_price * (Number(item.quantity) || 0)) : '-' }}
+                                {{
+                                    typeFor(item.sale_type_id)
+                                        ? formatRupiah(typeFor(item.sale_type_id)!.selling_price * (Number(item.quantity) || 0))
+                                        : '-'
+                                }}
                             </div>
                             <span class="text-xs text-muted-foreground">
-                                {{ typeFor(item.sale_type_id) ? `${formatNumber(typeFor(item.sale_type_id)!.egg_quantity * (Number(item.quantity) || 0))} butir` : '' }}
+                                {{
+                                    typeFor(item.sale_type_id)
+                                        ? `${formatNumber(typeFor(item.sale_type_id)!.egg_quantity * (Number(item.quantity) || 0))} butir`
+                                        : ''
+                                }}
                             </span>
                         </div>
 
@@ -204,7 +212,10 @@ const submit = () => {
                         class="flex items-start gap-3 rounded-lg border border-brand-danger/20 bg-brand-danger/10 p-3 text-sm text-brand-danger"
                     >
                         <AlertTriangle class="mt-0.5 size-4 shrink-0" />
-                        <p>Stok telur tidak mencukupi. Stok tersedia {{ formatNumber(stockAvailable) }} butir, kebutuhan {{ formatNumber(totalEggs) }} butir.</p>
+                        <p>
+                            Stok telur tidak mencukupi. Stok tersedia {{ formatNumber(stockAvailable) }} butir, kebutuhan
+                            {{ formatNumber(totalEggs) }} butir.
+                        </p>
                     </div>
                 </div>
 

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
+import InputError from '@/components/InputError.vue';
 import PageContainer from '@/components/PageContainer.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import Pagination from '@/components/Pagination.vue';
 import StatCard from '@/components/StatCard.vue';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import InputError from '@/components/InputError.vue';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
@@ -138,14 +138,20 @@ function submit(): void {
             >
                 <AlertTriangle class="mt-0.5 size-4 shrink-0" />
                 <p>
-                    Peringatan: total pergerakan stok ({{ formatNumber(stock.current) }}) tidak sama dengan sisa inventory layer
-                    ({{ formatNumber(stock.layers_remaining) }}). Periksa data stok Anda.
+                    Peringatan: total pergerakan stok ({{ formatNumber(stock.current) }}) tidak sama dengan sisa inventory layer ({{
+                        formatNumber(stock.layers_remaining)
+                    }}). Periksa data stok Anda.
                 </p>
             </div>
 
             <div class="space-y-3">
                 <h2 class="text-sm font-semibold text-foreground">Inventory layer (FIFO)</h2>
-                <DataTable :columns="layerColumns" :rows="layers.data" empty-title="Belum ada inventory layer" empty-description="Layer dibuat otomatis saat Anda mencatat pembelian.">
+                <DataTable
+                    :columns="layerColumns"
+                    :rows="layers.data"
+                    empty-title="Belum ada inventory layer"
+                    empty-description="Layer dibuat otomatis saat Anda mencatat pembelian."
+                >
                     <template #cell-purchase_number="{ row }">
                         <span class="font-medium text-foreground">{{ row.purchase_number ?? '-' }}</span>
                     </template>
@@ -198,8 +204,8 @@ function submit(): void {
 
                         <p class="rounded-md bg-muted/60 px-3 py-2 text-sm text-muted-foreground">
                             Stok setelah penyesuaian:
-                            <span class="font-medium text-foreground">{{ formatNumber(projectedStock) }} butir</span>.
-                            Stok masuk memakai HPP layer terakhir, stok keluar memakai FIFO.
+                            <span class="font-medium text-foreground">{{ formatNumber(projectedStock) }} butir</span>. Stok masuk memakai HPP layer
+                            terakhir, stok keluar memakai FIFO.
                         </p>
 
                         <DialogFooter class="[&>*]:w-full sm:[&>*]:w-auto">

@@ -76,11 +76,7 @@ function alignClass(column: DataTableColumn): string {
 
         <template v-else>
             <div class="space-y-3 md:hidden">
-                <article
-                    v-for="row in rows"
-                    :key="String(row[rowKey])"
-                    class="rounded-xl border border-border bg-card p-4 shadow-sm"
-                >
+                <article v-for="row in rows" :key="String(row[rowKey])" class="rounded-xl border border-border bg-card p-4 shadow-sm">
                     <div class="flex items-start justify-between gap-3">
                         <div class="min-w-0 flex-1">
                             <slot :name="`cell-${primaryColumn.key}`" :row="row" :value="getValue(row, primaryColumn)">

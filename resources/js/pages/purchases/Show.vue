@@ -38,7 +38,7 @@ type PurchaseDetail = {
     created_by: string | null;
     layer: { quantity_received: number; quantity_remaining: number; unit_cost: number } | null;
     movements: Movement[];
-}
+};
 
 const props = defineProps<{
     purchase: PurchaseDetail;
@@ -162,8 +162,8 @@ function submitCancel(): void {
                     <DialogHeader>
                         <DialogTitle>Batalkan pembelian?</DialogTitle>
                         <DialogDescription>
-                            Pembelian {{ purchase.purchase_number }} akan dibatalkan dan stok sebanyak
-                            {{ formatNumber(purchase.egg_quantity) }} butir dikurangi kembali.
+                            Pembelian {{ purchase.purchase_number }} akan dibatalkan dan stok sebanyak {{ formatNumber(purchase.egg_quantity) }} butir
+                            dikurangi kembali.
                         </DialogDescription>
                     </DialogHeader>
 

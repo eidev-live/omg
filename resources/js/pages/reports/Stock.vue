@@ -90,7 +90,12 @@ const exportUrl = computed(() => route('reports.stock.export', query.value));
                 <Button @click="apply">Terapkan Filter</Button>
             </div>
 
-            <DataTable :columns="columns" :rows="movements.data" empty-title="Tidak ada pergerakan stok" empty-description="Coba ubah filter periode.">
+            <DataTable
+                :columns="columns"
+                :rows="movements.data"
+                empty-title="Tidak ada pergerakan stok"
+                empty-description="Coba ubah filter periode."
+            >
                 <template #cell-quantity="{ row }">
                     <span :class="row.quantity >= 0 ? 'text-brand-green-dark' : 'text-brand-danger'">
                         {{ row.quantity > 0 ? '+' : '' }}{{ formatNumber(row.quantity) }}
