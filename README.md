@@ -37,8 +37,8 @@ Dirancang untuk pemilik usaha kecil yang tidak ingin berurusan dengan istilah ak
 ## Instalasi
 
 ```bash
-git clone <repository-url> oh-my-egg
-cd oh-my-egg
+git clone https://github.com/eidev-live/omg.git
+cd omg
 
 composer install
 npm install
@@ -168,7 +168,7 @@ Nilai persediaan dihitung dari sisa layer (`quantity_remaining × unit_cost`), b
 
 1. Buat branch dari `main` dengan nama `feature/...` atau `fix/...`
 2. Gunakan pesan commit bergaya Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`)
-3. Pastikan `php artisan test` lulus sebelum membuka pull request
+3. Pastikan `composer test` lulus sebelum membuka pull request
 
 ## Lisensi
 
