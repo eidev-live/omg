@@ -60,10 +60,7 @@ Nilai default sudah memakai SQLite dan Bahasa Indonesia (`APP_LOCALE=id`, `APP_T
 ```bash
 touch database/database.sqlite
 php artisan migrate
-php artisan storage:link
 ```
-
-> `storage:link` diperlukan agar logo aplikasi (`storage/app/public/omg_background.png`) dapat diakses.
 
 ## Membuat Akun Pemilik
 
@@ -131,7 +128,11 @@ app/
 
 database/
 ├── migrations/         # Skema database
-└── seeders/            # Data demo
+└── seeders/            # Pengaturan awal (mis. batas minimum stok)
+
+public/
+├── build/              # Aset frontend hasil build (ikut di-commit)
+└── images/             # Logo dan gambar statis
 
 resources/js/
 ├── components/         # Komponen UI reusable
@@ -164,6 +165,29 @@ Sisa stok      = 80 telur @ Rp2.800
 ```
 
 Nilai persediaan dihitung dari sisa layer (`quantity_remaining × unit_cost`), bukan dari `stok × harga beli terakhir`.
+
+## Deployment
+
+Aset frontend (`public/build`) ikut disimpan di repositori, sehingga server **tidak memerlukan Node.js**. Di server cukup:
+
+```bash
+composer install --no-dev --optimize-autoloader
+cp .env.production.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate --force --seed
+php artisan optimize
+```
+
+Untuk update berikutnya, gunakan `bash deploy.sh` (lihat [`docs/DEPLOY.md`](docs/DEPLOY.md) untuk runbook lengkap aaPanel, SSL, backup, dan konfigurasi multi-aplikasi dalam satu VPS).
+
+### Sebelum push (menyiapkan hasil build final)
+
+```bash
+composer deploy:prepare
+```
+
+Perintah ini menjalankan test, pemeriksaan format/lint/tipe, lalu `npm run build` sehingga `public/build` siap di-commit.
 
 ## Kontribusi
 
