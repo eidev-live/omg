@@ -1,0 +1,6 @@
+import{d as i,a as u,o as d,N as c,b as m,S as p,u as o,e as f,l as b,D as v,Q as V}from"./app-Xbq2XEuQ.js";import{c as g}from"./AppLogoImage-8jXzd0S2.js";import{u as h}from"./index-Dgs_NIrR.js";import{c as x}from"./createLucideIcon-DOBfZ6bv.js";/**
+ * @license lucide-vue-next v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const _=x("ChevronDownIcon",[["path",{d:"m6 9 6 6 6-6",key:"qrunsl"}]]),k={class:"relative"},B=i({__name:"Select",props:{defaultValue:{},modelValue:{},class:{}},emits:["update:modelValue"],setup(a,{emit:l}){const e=a,s=h(e,"modelValue",l,{passive:!0,defaultValue:e.defaultValue});return(n,t)=>(d(),u("div",k,[c(f("select",{"onUpdate:modelValue":t[0]||(t[0]=r=>V(s)?s.value=r:null),class:v(o(g)("flex h-10 w-full appearance-none rounded-md border border-input bg-background px-3 py-2 pr-9 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",e.class))},[b(n.$slots,"default")],2),[[p,o(s)]]),m(o(_),{class:"pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"})]))}});export{B as _};
