@@ -7,6 +7,7 @@ use App\Models\Purchase;
 use App\Models\Sale;
 use App\Models\StockMovement;
 use App\Services\ReportService;
+use App\Support\Csv;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -120,7 +121,7 @@ class ReportController extends Controller
             $sale->status->value,
         ]);
 
-        return $this->csv('laporan-penjualan.csv', [
+        return Csv::stream('laporan-penjualan.csv', [
             'Invoice', 'Tanggal', 'Customer', 'Total', 'Dibayar', 'Sisa', 'Pembayaran', 'Pengiriman', 'Status',
         ], $rows);
     }
@@ -138,7 +139,7 @@ class ReportController extends Controller
             (float) $purchase->cost_per_egg,
         ]);
 
-        return $this->csv('laporan-pembelian.csv', [
+        return Csv::stream('laporan-pembelian.csv', [
             'No. Pembelian', 'Tanggal', 'Jumlah Ikat', 'Total Telur', 'Total Biaya', 'HPP per Butir',
         ], $rows);
     }
@@ -156,7 +157,7 @@ class ReportController extends Controller
             $row['revenue'] > 0 ? round($row['gross_profit'] / $row['revenue'] * 100, 2) : 0,
         ]);
 
-        return $this->csv('laporan-profit.csv', [
+        return Csv::stream('laporan-profit.csv', [
             'Tanggal', 'Pendapatan', 'COGS', 'Laba Kotor', 'Margin (%)',
         ], $rows);
     }
@@ -172,7 +173,7 @@ class ReportController extends Controller
             $movement->notes,
         ]);
 
-        return $this->csv('laporan-stock.csv', [
+        return Csv::stream('laporan-stock.csv', [
             'Tanggal', 'Jenis', 'Jumlah', 'Catatan',
         ], $rows);
     }
@@ -189,39 +190,5 @@ class ReportController extends Controller
             'payment' => $request->string('payment')->toString() ?: null,
             'delivery' => $request->string('delivery')->toString() ?: null,
         ];
-    }
-
-    /**
-     * @param  array<int, string>  $headers
-     * @param  iterable<int, array<int, mixed>>  $rows
-     */
-    private function csv(string $filename, array $headers, iterable $rows): StreamedResponse
-    {
-        return response()->streamDownload(function () use ($headers, $rows) {
-            $handle = fopen('php://output', 'w');
-            fputcsv($handle, $headers);
-
-            foreach ($rows as $row) {
-                fputcsv($handle, array_map($this->escapeCsvValue(...), $row));
-            }
-
-            fclose($handle);
-        }, $filename, ['Content-Type' => 'text/csv; charset=UTF-8']);
-    }
-
-    /**
-     * Mencegah CSV formula injection di aplikasi spreadsheet.
-     */
-    private function escapeCsvValue(mixed $value): mixed
-    {
-        if (! is_string($value) || $value === '') {
-            return $value;
-        }
-
-        if (in_array($value[0], ['=', '+', '-', '@', "\t", "\r"], true)) {
-            return "'".$value;
-        }
-
-        return $value;
     }
 }

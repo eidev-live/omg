@@ -12,6 +12,7 @@ import {
     ShoppingCart,
     Tags,
     TrendingUp,
+    UserPlus,
     Users,
     Warehouse,
     type LucideIcon,
@@ -44,6 +45,7 @@ const sections: { label: string; items: NavMenuItem[] }[] = [
         label: 'Master',
         items: [
             { title: 'Customer', href: '/customers', icon: Users },
+            { title: 'Calon Pembeli', href: '/leads', icon: UserPlus },
             { title: 'Tipe Penjualan', href: '/sale-types', icon: Tags },
         ],
     },

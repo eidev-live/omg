@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
@@ -11,8 +12,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
 
+Route::post('leads', [LeadController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('leads.store');
+
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('leads', [LeadController::class, 'index'])->name('leads.index');
+    Route::get('leads/export', [LeadController::class, 'export'])
+        ->middleware('throttle:30,1')
+        ->name('leads.export');
 
     Route::patch('customers/{customer}/toggle', [CustomerController::class, 'toggle'])->name('customers.toggle');
     Route::resource('customers', CustomerController::class)->except(['show']);
