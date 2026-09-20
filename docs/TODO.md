@@ -2,21 +2,22 @@
 
 Catatan pekerjaan lanjutan setelah deployment awal. Status saat ini:
 
-- **Live**: `http://139.190.98.49` (Ubuntu 24.04, nginx + PHP 8.3-FPM + SQLite)
+- **Live**: `https://omg.eidevapps.web.id` (HTTP mengarah ke HTTPS; akses IP `http://139.190.98.49` tetap tersedia sebagai fallback)
+- **Stack**: Ubuntu 24.04, nginx 1.24, PHP 8.3-FPM, SQLite
 - **Akun**: `heyerisa@gmail.com`
 - **Backup**: cron harian 02:00, retensi 7 hari (`backups/`)
-- **HTTPS**: belum aktif (menunggu domain `.my.id`)
+- **HTTPS**: aktif (Let's Encrypt, berlaku untuk `omg.eidevapps.web.id` + `eidevapps.web.id`; auto-renew via snap timer)
 
 ---
 
-## A. Domain & HTTPS
+## A. Domain & HTTPS — SELESAI
 
-1. Beli domain **`.my.id`** di registrar lokal (mis. Domainesia/Rumahweb).
-2. Tambah **A record** `@` (dan `www`) → `139.190.98.49`; tunggu propagasi DNS.
-3. Pasang **Let's Encrypt** untuk domain (aaPanel *SSL* atau `certbot`) + redirect HTTP→HTTPS.
-4. Perbarui `.env`: `APP_URL=https://<domain>`, `APP_FORCE_HTTPS=true`, `SESSION_SECURE_COOKIE=true`, lalu `php artisan optimize`.
-5. Verifikasi login via HTTPS dari HP.
-6. Opsional: pasang Cloudflare (DNS + proxy/WAF) di depan VPS.
+- [x] Domain `.web.id` aktif dengan DNS di Cloudflare.
+- [x] A record `omg` dan `@` → `139.190.98.49`.
+- [x] Let's Encrypt terpasang + redirect HTTP→HTTPS.
+- [x] `.env`: `APP_URL=https://omg.eidevapps.web.id`, `APP_FORCE_HTTPS=true`, `SESSION_SECURE_COOKIE=true`.
+- [x] Verifikasi login via HTTPS.
+- [ ] Opsional: aktifkan Cloudflare proxy (awan oranye) dengan mode SSL `Full (strict)`.
 
 ## B. Manajemen aaPanel
 
