@@ -128,7 +128,7 @@ Skrip: `scripts/backup-db.sh` (menyimpan ke `backups/` dan menghapus berkas lebi
 Contoh cron aaPanel (*Cron → Add Task → Shell Script*, jalankan sebagai root, harian 02:00):
 
 ```bash
-/www/wwwroot/omg/scripts/backup-db.sh >> /www/wwwroot/omg/backups/backup.log 2>&1
+bash /www/wwwroot/omg/scripts/backup-db.sh >> /www/wwwroot/omg/backups/backup.log 2>&1
 ```
 
 **Restore**: hentikan sementara akses, ganti `database/database.sqlite` dengan hasil `gunzip` backup terbaru, lalu perbaiki izin:
