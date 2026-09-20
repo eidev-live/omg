@@ -12,9 +12,11 @@ const props = defineProps<{
     total: number;
 }>();
 
-const visibleLinks = computed(() => props.links.filter((link) => link.label !== '&laquo; Previous' && link.label !== 'Next &raquo;'));
-const previous = computed(() => props.links.find((link) => link.label === '&laquo; Previous'));
-const next = computed(() => props.links.find((link) => link.label === 'Next &raquo;'));
+// Struktur link Laravel selalu: [sebelumnya, ...halaman..., berikutnya].
+// Deteksi lewat posisi agar tidak bergantung pada label/entity (&laquo; / &raquo;).
+const previous = computed<PaginationLink | null>(() => props.links[0] ?? null);
+const next = computed<PaginationLink | null>(() => props.links[props.links.length - 1] ?? null);
+const pages = computed<PaginationLink[]>(() => (props.links.length > 2 ? props.links.slice(1, -1) : []));
 </script>
 
 <template>
@@ -25,7 +27,7 @@ const next = computed(() => props.links.find((link) => link.label === 'Next &raq
             <span class="font-medium text-foreground">{{ total }}</span> data
         </p>
 
-        <nav class="flex items-center gap-1" aria-label="Navigasi halaman">
+        <nav v-if="previous || next" class="flex items-center gap-1" aria-label="Navigasi halaman">
             <Button variant="outline" size="icon" :class="{ 'pointer-events-none opacity-50': !previous?.url }" as-child>
                 <Link v-if="previous?.url" :href="previous.url" preserve-scroll aria-label="Halaman sebelumnya">
                     <ChevronLeft class="size-4" />
@@ -33,8 +35,8 @@ const next = computed(() => props.links.find((link) => link.label === 'Next &raq
                 <span v-else aria-disabled="true"><ChevronLeft class="size-4" /></span>
             </Button>
 
-            <template v-for="(link, index) in visibleLinks" :key="index">
-                <span v-if="link.label === '...'" class="px-2 text-sm text-muted-foreground">...</span>
+            <template v-for="(link, index) in pages" :key="index">
+                <span v-if="link.label === '...'" class="px-2 text-sm text-muted-foreground">&hellip;</span>
                 <Button v-else :variant="link.active ? 'default' : 'outline'" size="sm" class="min-w-[2.25rem]" as-child>
                     <Link :href="link.url ?? '#'" preserve-scroll>{{ link.label }}</Link>
                 </Button>
