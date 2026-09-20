@@ -12,7 +12,7 @@ import { formatNumber, formatRupiah, formatShortDate } from '@/lib/format';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { AlertTriangle, BarChart3, Boxes, PackagePlus, ShoppingCart, TrendingUp, Wallet } from 'lucide-vue-next';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 interface Summary {
     revenue: number;
@@ -50,10 +50,18 @@ const periods = [
     { key: 'custom', label: 'Custom' },
 ];
 
-const dateFrom = ref(props.dateFrom);
-const dateTo = ref(props.dateTo);
+const customFrom = ref(props.dateFrom);
+const customTo = ref(props.dateTo);
 
-function apply(nextPeriod: string, from = dateFrom.value, to = dateTo.value): void {
+watch(
+    () => [props.dateFrom, props.dateTo],
+    ([from, to]) => {
+        customFrom.value = from;
+        customTo.value = to;
+    },
+);
+
+function apply(nextPeriod: string, from = customFrom.value, to = customTo.value): void {
     router.get(
         route('dashboard'),
         { period: nextPeriod, date_from: from, date_to: to },
@@ -90,15 +98,17 @@ const profitValues = computed(() => props.profitTrend.map((point) => point.gross
                 <div v-if="period === 'custom'" class="grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
                     <div class="grid gap-2">
                         <Label for="date_from" class="text-xs text-muted-foreground">Dari tanggal</Label>
-                        <Input id="date_from" v-model="dateFrom" type="date" />
+                        <Input id="date_from" v-model="customFrom" type="date" />
                     </div>
                     <div class="grid gap-2">
                         <Label for="date_to" class="text-xs text-muted-foreground">Sampai tanggal</Label>
-                        <Input id="date_to" v-model="dateTo" type="date" />
+                        <Input id="date_to" v-model="customTo" type="date" />
                     </div>
                     <Button variant="secondary" @click="apply('custom')">Terapkan</Button>
                 </div>
-                <p v-else class="text-xs text-muted-foreground">Periode: {{ formatShortDate(dateFrom) }} &ndash; {{ formatShortDate(dateTo) }}</p>
+                <p v-else class="text-xs text-muted-foreground">
+                    Periode: {{ formatShortDate(props.dateFrom) }} &ndash; {{ formatShortDate(props.dateTo) }}
+                </p>
             </div>
 
             <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

@@ -21,10 +21,10 @@ const accentClasses: Record<ToastVariant, string> = {
         <TransitionGroup
             tag="div"
             enter-active-class="transition duration-200 ease-out"
-            enter-from-class="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-4"
+            enter-from-class="-translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-4"
             leave-active-class="transition duration-150 ease-in"
             leave-to-class="opacity-0"
-            class="pointer-events-none fixed inset-x-4 bottom-4 z-[100] flex flex-col gap-2 sm:inset-x-auto sm:bottom-auto sm:right-4 sm:top-4 sm:w-96"
+            class="pointer-events-none fixed inset-x-4 top-4 z-[100] flex flex-col gap-2 sm:inset-x-auto sm:right-4 sm:top-4 sm:w-96"
             aria-live="polite"
             role="status"
         >

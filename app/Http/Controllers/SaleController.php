@@ -90,9 +90,9 @@ class SaleController extends Controller
 
     public function store(StoreSaleRequest $request): RedirectResponse
     {
-        $sale = $this->sales->create($request->validated());
+        $this->sales->create($request->validated());
 
-        return to_route('sales.show', $sale)->with('success', 'Transaksi penjualan berhasil disimpan.');
+        return to_route('sales.index')->with('success', 'Transaksi penjualan berhasil disimpan.');
     }
 
     public function show(Sale $sale): Response

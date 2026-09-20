@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
+import FilterDialog from '@/components/FilterDialog.vue';
 import PageContainer from '@/components/PageContainer.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import Pagination from '@/components/Pagination.vue';
@@ -13,7 +14,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type DataTableColumn, type Paginator } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { Eye, Plus } from 'lucide-vue-next';
-import { onUnmounted, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 
 type SaleRow = {
     id: number;
@@ -70,9 +71,17 @@ watch(search, () => {
     searchTimeout = setTimeout(applyFilters, 300);
 });
 
-watch([payment, delivery, dateFrom, dateTo], applyFilters);
-
 onUnmounted(() => clearTimeout(searchTimeout));
+
+const activeFilterCount = computed(() => [payment.value, delivery.value, dateFrom.value, dateTo.value].filter(Boolean).length);
+
+function resetFilters(): void {
+    payment.value = '';
+    delivery.value = '';
+    dateFrom.value = '';
+    dateTo.value = '';
+    applyFilters();
+}
 </script>
 
 <template>
@@ -91,37 +100,36 @@ onUnmounted(() => clearTimeout(searchTimeout));
                 </template>
             </PageHeader>
 
-            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="grid gap-2 lg:col-span-2">
-                    <Label for="search" class="text-xs text-muted-foreground">Cari</Label>
-                    <Input id="search" v-model="search" type="search" placeholder="Invoice atau nama customer..." />
-                </div>
-                <div class="grid gap-2">
-                    <Label for="payment" class="text-xs text-muted-foreground">Pembayaran</Label>
-                    <Select id="payment" v-model="payment">
-                        <option value="">Semua</option>
-                        <option value="UNPAID">Belum Lunas</option>
-                        <option value="PARTIAL">Sebagian</option>
-                        <option value="PAID">Lunas</option>
-                    </Select>
-                </div>
-                <div class="grid gap-2">
-                    <Label for="delivery" class="text-xs text-muted-foreground">Pengiriman</Label>
-                    <Select id="delivery" v-model="delivery">
-                        <option value="">Semua</option>
-                        <option value="PENDING">Menunggu</option>
-                        <option value="SHIPPED">Dikirim</option>
-                        <option value="DELIVERED">Terkirim</option>
-                    </Select>
-                </div>
-                <div class="grid gap-2">
-                    <Label for="date_from" class="text-xs text-muted-foreground">Dari tanggal</Label>
-                    <Input id="date_from" v-model="dateFrom" type="date" />
-                </div>
-                <div class="grid gap-2">
-                    <Label for="date_to" class="text-xs text-muted-foreground">Sampai tanggal</Label>
-                    <Input id="date_to" v-model="dateTo" type="date" />
-                </div>
+            <div class="flex items-center gap-3">
+                <Input v-model="search" type="search" placeholder="Cari invoice atau nama customer..." class="flex-1" />
+                <FilterDialog :active-count="activeFilterCount" title="Filter Penjualan" @apply="applyFilters" @reset="resetFilters">
+                    <div class="grid gap-2">
+                        <Label for="payment" class="text-xs text-muted-foreground">Pembayaran</Label>
+                        <Select id="payment" v-model="payment">
+                            <option value="">Semua</option>
+                            <option value="UNPAID">Belum Lunas</option>
+                            <option value="PARTIAL">Sebagian</option>
+                            <option value="PAID">Lunas</option>
+                        </Select>
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="delivery" class="text-xs text-muted-foreground">Pengiriman</Label>
+                        <Select id="delivery" v-model="delivery">
+                            <option value="">Semua</option>
+                            <option value="PENDING">Menunggu</option>
+                            <option value="SHIPPED">Dikirim</option>
+                            <option value="DELIVERED">Terkirim</option>
+                        </Select>
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="date_from" class="text-xs text-muted-foreground">Dari tanggal</Label>
+                        <Input id="date_from" v-model="dateFrom" type="date" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="date_to" class="text-xs text-muted-foreground">Sampai tanggal</Label>
+                        <Input id="date_to" v-model="dateTo" type="date" />
+                    </div>
+                </FilterDialog>
             </div>
 
             <DataTable

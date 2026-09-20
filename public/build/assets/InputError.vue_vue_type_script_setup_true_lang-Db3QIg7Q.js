@@ -1,0 +1,1 @@
+import{d as s,p as a,R as t,o,a as r,f as n,t as p}from"./app-DgabyM0n.js";const c={class:"text-sm text-brand-danger"},d=s({__name:"InputError",props:{message:{}},setup(i){return(e,m)=>a((o(),r("div",null,[n("p",c,p(e.message),1)],512)),[[t,e.message]])}});export{d as _};

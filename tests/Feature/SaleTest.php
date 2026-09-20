@@ -211,7 +211,7 @@ test('a sale can be created through the endpoint', function () {
         'items' => [['sale_type_id' => $pack->id, 'quantity' => 2]],
         'paid_amount' => 66000,
         'delivery_status' => 'PENDING',
-    ])->assertRedirect();
+    ])->assertRedirect(route('sales.index'));
 
     $this->assertDatabaseCount('sales', 1);
     $this->assertDatabaseCount('sale_items', 1);

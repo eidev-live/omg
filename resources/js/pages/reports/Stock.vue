@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
+import FilterDialog from '@/components/FilterDialog.vue';
 import PageContainer from '@/components/PageContainer.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import Pagination from '@/components/Pagination.vue';
@@ -48,6 +49,14 @@ function apply(): void {
 }
 
 const exportUrl = computed(() => route('reports.stock.export', query.value));
+
+const activeFilterCount = computed(() => [dateFrom.value, dateTo.value].filter(Boolean).length);
+
+function resetFilters(): void {
+    dateFrom.value = '';
+    dateTo.value = '';
+    apply();
+}
 </script>
 
 <template>
@@ -78,16 +87,17 @@ const exportUrl = computed(() => route('reports.stock.export', query.value));
                 />
             </div>
 
-            <div class="grid gap-3 rounded-xl border border-border bg-card p-4 shadow-sm sm:grid-cols-[1fr_1fr_auto] sm:items-end">
-                <div class="grid gap-2">
-                    <Label for="date_from" class="text-xs text-muted-foreground">Dari</Label>
-                    <Input id="date_from" v-model="dateFrom" type="date" />
-                </div>
-                <div class="grid gap-2">
-                    <Label for="date_to" class="text-xs text-muted-foreground">Sampai</Label>
-                    <Input id="date_to" v-model="dateTo" type="date" />
-                </div>
-                <Button @click="apply">Terapkan Filter</Button>
+            <div class="flex justify-end">
+                <FilterDialog :active-count="activeFilterCount" title="Filter Laporan" @apply="apply" @reset="resetFilters">
+                    <div class="grid gap-2">
+                        <Label for="date_from" class="text-xs text-muted-foreground">Dari</Label>
+                        <Input id="date_from" v-model="dateFrom" type="date" />
+                    </div>
+                    <div class="grid gap-2">
+                        <Label for="date_to" class="text-xs text-muted-foreground">Sampai</Label>
+                        <Input id="date_to" v-model="dateTo" type="date" />
+                    </div>
+                </FilterDialog>
             </div>
 
             <DataTable
