@@ -98,6 +98,7 @@ Simpan, lalu buka `http://<IP>` dan login.
 
 ```env
 APP_URL=https://omg.domainku.com
+APP_FORCE_HTTPS=true
 SESSION_SECURE_COOKIE=true
 ASSET_URL=https://omg.domainku.com
 ```

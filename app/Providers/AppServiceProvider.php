@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Password::defaults(fn () => Password::min(8));
 
-        if ($this->app->environment('production')) {
+        if (config('app.force_https')) {
             URL::forceScheme('https');
         }
     }

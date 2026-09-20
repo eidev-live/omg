@@ -56,6 +56,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Force HTTPS
+    |--------------------------------------------------------------------------
+    |
+    | Aktifkan hanya setelah sertifikat HTTPS terpasang. Saat false, aplikasi
+    | tetap menghasilkan URL http sehingga aset dapat dimuat sebelum SSL siap.
+    |
+    */
+
+    'force_https' => env('APP_FORCE_HTTPS', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

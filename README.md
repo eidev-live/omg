@@ -179,7 +179,7 @@ php artisan migrate --force --seed
 php artisan optimize
 ```
 
-Untuk update berikutnya, gunakan `bash deploy.sh` (lihat [`docs/DEPLOY.md`](docs/DEPLOY.md) untuk runbook lengkap aaPanel, SSL, backup, dan konfigurasi multi-aplikasi dalam satu VPS).
+Untuk update berikutnya, gunakan `bash deploy.sh` (lihat [`docs/DEPLOY.md`](docs/DEPLOY.md) untuk runbook lengkap aaPanel, SSL, backup, dan konfigurasi multi-aplikasi dalam satu VPS). Rencana pekerjaan lanjutan ada di [`docs/TODO.md`](docs/TODO.md).
 
 ### Sebelum push (menyiapkan hasil build final)
 
