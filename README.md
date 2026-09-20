@@ -65,24 +65,25 @@ php artisan storage:link
 
 > `storage:link` diperlukan agar logo aplikasi (`storage/app/public/omg_background.png`) dapat diakses.
 
-## Seed Data Demo
+## Membuat Akun Pemilik
+
+Registrasi publik dinonaktifkan, jadi akun pemilik dibuat lewat Artisan:
 
 ```bash
-php artisan migrate:fresh --seed
+php artisan app:create-owner
 ```
 
-Seeder membuat satu akun pemilik:
+Atau tanpa interaksi:
 
-| Email | Password |
-| --- | --- |
-| `demo@example.com` | `password` |
+```bash
+php artisan app:create-owner --name="Nama Anda" --email="email@example.com" --password="password-ku"
+```
 
-Selain itu tersedia data demo: customer (Budi, Sari, Andi), tipe penjualan (Pack, Tray, Ikat),
-dua batch pembelian dengan HPP berbeda, serta lima transaksi penjualan yang mendemonstrasikan
-status pembayaran (lunas, sebagian, belum lunas), status pengiriman (menunggu, dikirim, terkirim),
-multi-item, dan konsumsi stok FIFO.
+Seeder hanya menyiapkan pengaturan awal (mis. batas minimum stok) tanpa data contoh:
 
-> Kredensial di atas hanya untuk pengembangan. Ganti sebelum dipakai di lingkungan nyata.
+```bash
+php artisan migrate --seed
+```
 
 ## Menjalankan Development Server
 
